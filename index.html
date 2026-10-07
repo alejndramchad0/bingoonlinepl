@@ -2,14 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>BINGO PL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buscador de Cartones de Bingo</title>
   <style>
-    * { 
-      box-sizing: border-box; 
-      -webkit-tap-highlight-color: transparent;
-    }
-    
     body { 
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
       text-align: center; 
@@ -17,199 +12,81 @@
       margin: 0; 
       padding: 15px 10px; 
       background-color: #0d1b3e;
-      background-image: radial-gradient(circle at center, #1e3a8a 0%, #0b132b 100%);
-      min-height: 100vh;
+      background-image: url('1000050238.png');
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
     }
     
-    .brand-title { 
-      color: #ffd700; 
-      margin: 10px 0 2px 0; 
-      font-size: 2.2rem; 
-      font-family: 'Impact', 'Arial Black', sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      text-shadow: 0 3px 8px rgba(0,0,0,0.9), 0 0 15px rgba(255, 215, 0, 0.5);
-    }
-    
-    .subtitle { 
-      margin-top: 0; 
-      color: #ffffff; 
-      font-size: 0.9rem; 
-      text-shadow: 0 1px 3px rgba(0,0,0,0.9); 
-      margin-bottom: 20px;
-    }
+    h1 { color: #facc15; margin-bottom: 5px; font-size: 1.8rem; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+    p { margin-top: 0; color: #cbd5e1; font-size: 0.95rem; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
     
     .search-box { 
-      margin: 0 auto 15px auto; 
-      width: 100%;
+      margin: 15px auto; 
       max-width: 320px; 
       display: flex; 
-      flex-direction: column;
+      flex-direction: column; 
       gap: 10px; 
-      background: rgba(10, 25, 60, 0.92); 
-      padding: 14px;
-      border-radius: 14px;
-      border: 2px solid #ffd700;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+      background: rgba(30, 41, 59, 0.92);
+      padding: 15px;
+      border-radius: 12px;
+      border: 1px solid #334155;
     }
-
     .search-box input { 
       width: 100%; 
-      padding: 12px 8px; 
-      font-size: 1.1rem; 
-      border: 2px solid #ffffff; 
-      border-radius: 8px; 
-      background: #ffffff; 
-      color: #000000; 
-      outline: none; 
-      text-align: center; 
-      font-weight: bold;
-    }
-
-    .search-box button { 
-      width: 100%;
+      box-sizing: border-box;
       padding: 12px; 
       font-size: 1.1rem; 
-      font-weight: 900; 
+      border: 2px solid #334155; 
+      border-radius: 8px; 
+      background: #1e293b; 
+      color: #fff; 
+      outline: none; 
+      text-align: center; 
+    }
+    .search-box input:focus { border-color: #38bdf8; }
+    .search-box button { 
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px; 
+      font-size: 1.1rem; 
+      font-weight: bold; 
       border: none; 
       border-radius: 8px; 
-      background: linear-gradient(180deg, #ffd700 0%, #ff8c00 100%); 
-      color: #000000; 
-      cursor: pointer; 
-      box-shadow: 0 3px 8px rgba(0,0,0,0.4);
-      text-transform: uppercase;
-      touch-action: manipulation;
-    }
-
-    .search-box button:active {
-      transform: scale(0.97);
-    }
-
-    .search-hint {
-      font-size: 0.75rem;
-      color: #cbd5e1;
-      font-family: sans-serif;
-      line-height: 1.1;
-    }
-
-    .cards-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      align-items: center;
-      margin-top: 15px;
-    }
-
-    .card-container {
-      width: 100%;
-      max-width: 340px;
-    }
-
-    .marquee-header {
-      background: #c00d1e;
-      border: 3px solid #ff4d4d;
-      border-radius: 12px 12px 0 0;
-      padding: 6px 10px;
-      box-shadow: 0 0 12px rgba(192, 13, 30, 0.7);
-    }
-
-    .marquee-title {
-      font-size: 1.25rem;
-      color: #ffffff;
-      text-shadow: 2px 2px 4px #000;
-      margin: 0;
-      text-transform: uppercase;
-      font-family: 'Impact', 'Arial Black', sans-serif;
-    }
-
-    .card-frame {
-      background: rgba(192, 13, 30, 0.95);
-      border: 3px solid #ffd700;
-      border-top: none;
-      border-radius: 0 0 16px 16px;
-      padding: 8px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.7);
-    }
-    
-    .card { 
-      display: grid; 
-      grid-template-columns: repeat(5, 1fr); 
-      gap: 4px; 
-      background: #ffffff; 
-      padding: 6px; 
-      border-radius: 10px; 
-    }
-
-    .cell { 
-      background: #f8fafc; 
-      border: 2px solid #cbd5e1; 
-      padding: 12px 0; 
-      font-weight: 900; 
-      font-size: 1.1rem; 
-      cursor: pointer; 
-      user-select: none; 
-      border-radius: 6px; 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
+      background: #38bdf8; 
       color: #0f172a; 
-      touch-action: manipulation;
+      cursor: pointer; 
     }
 
-    .cell.header { 
-      background: linear-gradient(180deg, #ffd700 0%, #f59e0b 100%); 
-      color: #000000; 
-      font-size: 1.2rem; 
-      border: none; 
-      cursor: default; 
-    }
-
-    .cell.marked { 
-      background: radial-gradient(circle at 30% 30%, #ff4d4d, #990000) !important; 
-      color: #ffffff !important; 
-      border-color: #660000 !important; 
-      border-radius: 50%; 
-      box-shadow: inset 0 -2px 4px rgba(0,0,0,0.4), 0 2px 5px rgba(0,0,0,0.3);
-      text-shadow: 1px 1px 2px #000;
-    }
-
-    .cell.free { 
-      background: #22c55e; 
-      color: #ffffff; 
-      font-size: 0.75rem; 
-      border: none; 
-    }
+    .card-title { font-size: 1.3rem; font-weight: bold; color: #f8fafc; margin: 15px 0 5px 0; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+    
+    .card { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; max-width: 360px; margin: 10px auto; background: rgba(30, 41, 59, 0.95); padding: 12px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border: 1px solid #334155; }
+    .cell { background: #334155; border: 1px solid #475569; padding: 14px 2px; font-weight: bold; font-size: 1.1rem; cursor: pointer; user-select: none; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #fff; }
+    .cell.header { background: #facc15; color: #0f172a; font-size: 1.3rem; font-weight: 900; border: none; cursor: default; }
+    .cell.marked { background: #ef4444 !important; color: #fff !important; border-color: #dc2626 !important; border-radius: 50%; }
+    .cell.free { background: #22c55e; color: #fff; font-size: 0.85rem; border: none; }
     
     .actions { margin-top: 15px; }
-    
-    .btn-reset { 
-      background: rgba(255,255,255,0.25); 
-      color: #ffffff; 
-      border: 1px solid rgba(255,255,255,0.5); 
-      padding: 10px 20px; 
-      font-size: 0.9rem; 
-      font-weight: bold; 
-      border-radius: 8px; 
-      cursor: pointer; 
-    }
+    .btn-reset { background: #475569; color: #fff; border: none; padding: 8px 16px; font-size: 0.9rem; border-radius: 6px; cursor: pointer; }
   </style>
 </head>
 <body>
 
-  <h1 class="brand-title">BINGO PL</h1>
-  <p class="subtitle">Ingresa tu número de cartón (Ej: 5 o 3, 8 o 1-4)</p>
+  <h1>Buscador de Cartones</h1>
+  <p>Ingresa el número de tu cartón para jugarlo</p>
 
   <div class="search-box">
-    <input type="text" id="numCarton" placeholder="Ej: 5  ó  3, 12, 25  ó  1-4" autocomplete="off">
-    <button type="button" id="btnBuscar">BUSCAR</button>
-    <div class="search-hint">Ingresa cartones separados por comas o rangos.</div>
+    <input type="number" id="numCarton" placeholder="Ejemplo: 56" min="1" max="5000">
+    <button type="button" onclick="buscarCarton()">Buscar</button>
   </div>
 
   <div id="contenido-carton" style="display: none;">
+    <div class="card-title" id="titulo-carton">Cartón #--</div>
+    <div id="bingo-card" class="card"></div>
     <div class="actions">
-      <button class="btn-reset" type="button" id="btnReset">Limpiar Marcas</button>
+      <button class="btn-reset" type="button" onclick="limpiarMarcas()">Limpiar Marcas</button>
     </div>
-    <div id="cards-wrapper" class="cards-wrapper"></div>
   </div>
 
   <script>
@@ -221,74 +98,21 @@
       };
     }
 
-    function procesarEntradaCartones(texto) {
-      const lista = [];
-      if (!texto) return lista;
-      const partes = texto.split(',');
-
-      partes.forEach(p => {
-        const tr = p.trim();
-        if (tr.includes('-')) {
-          const rango = tr.split('-');
-          const inicio = parseInt(rango[0]);
-          const fin = parseInt(rango[1]);
-          if (!isNaN(inicio) && !isNaN(fin) && inicio <= fin) {
-            for (let i = inicio; i <= fin; i++) {
-              if (i > 0 && !lista.includes(i)) lista.push(i);
-            }
-          }
-        } else {
-          const num = parseInt(tr);
-          if (!isNaN(num) && num > 0 && !lista.includes(num)) {
-            lista.push(num);
-          }
-        }
-      });
-
-      return lista;
-    }
-
     function buscarCarton() {
-      const inputEl = document.getElementById("numCarton");
-      const texto = inputEl ? inputEl.value : "";
-      const numerosCartones = procesarEntradaCartones(texto);
+      const input = document.getElementById("numCarton").value;
+      const numero = parseInt(input);
 
-      if (numerosCartones.length === 0) {
-        alert("Por favor ingresa un número de cartón válido (Ej: 5).");
+      if (!numero || numero < 1) {
+        alert("Por favor ingresa un número de cartón válido.");
         return;
       }
 
-      if (numerosCartones.length > 20) {
-        alert("Se cargarán los primeros 20 cartones ingresados.");
-        numerosCartones.length = 20;
-      }
-
-      const wrapper = document.getElementById("cards-wrapper");
-      wrapper.innerHTML = "";
+      document.getElementById("titulo-carton").innerText = "Cartón #" + numero;
       document.getElementById("contenido-carton").style.display = "block";
 
-      numerosCartones.forEach(num => {
-        crearCartonHTML(num, wrapper);
-      });
-    }
-
-    function crearCartonHTML(numero, contenedorPadre) {
-      const cartonDiv = document.createElement("div");
-      cartonDiv.className = "card-container";
-
-      cartonDiv.innerHTML = `
-        <div class="marquee-header">
-          <h2 class="marquee-title">Cartón #${numero}</h2>
-        </div>
-        <div class="card-frame">
-          <div class="card" id="card-${numero}"></div>
-        </div>
-      `;
-
-      contenedorPadre.appendChild(cartonDiv);
-
-      const container = document.getElementById(card-${numero});
       const rng = pseudoRandom(numero);
+      const container = document.getElementById("bingo-card");
+      container.innerHTML = "";
 
       const headers = ['B', 'I', 'N', 'G', 'O'];
       headers.forEach(h => {
@@ -315,9 +139,7 @@
             cell.innerText = "LIBRE";
             cell.classList.add("free", "marked");
           } else {
-            const valor = columnas[col][fila];
-            cell.innerText = valor;
-            
+            cell.innerText = columnas[col][fila];
             cell.onclick = function() {
               this.classList.toggle("marked");
             };
@@ -340,32 +162,6 @@
       const celdas = document.querySelectorAll(".cell:not(.header):not(.free)");
       celdas.forEach(celda => celda.classList.remove("marked"));
     }
-
-    document.addEventListener("DOMContentLoaded", function() {
-      const btnBuscar = document.getElementById("btnBuscar");
-      const btnReset = document.getElementById("btnReset");
-      const input = document.getElementById("numCarton");
-
-      if (btnBuscar) {
-        btnBuscar.addEventListener("click", buscarCarton);
-        btnBuscar.addEventListener("touchend", function(e) {
-          e.preventDefault();
-          buscarCarton();
-        });
-      }
-
-      if (btnReset) {
-        btnReset.addEventListener("click", limpiarMarcas);
-      }
-
-      if (input) {
-        input.addEventListener("keyup", function(e) {
-          if (e.key === "Enter" || e.keyCode === 13) {
-            buscarCarton();
-          }
-        });
-      }
-    });
   </script>
 
 </body>
