@@ -17,16 +17,13 @@
       margin: 0; 
       padding: 15px 10px; 
       background-color: #0d1b3e;
-      background-image: url('https://i.ibb.co/C38bLgtF/1000050238.png');
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-attachment: fixed;
+      background-image: radial-gradient(circle at center, #1e3a8a 0%, #0b132b 100%);
+      min-height: 100vh;
     }
     
     .brand-title { 
       color: #ffd700; 
-      margin: 5px 0 2px 0; 
+      margin: 10px 0 2px 0; 
       font-size: 2.2rem; 
       font-family: 'Impact', 'Arial Black', sans-serif;
       text-transform: uppercase;
@@ -39,7 +36,7 @@
       color: #ffffff; 
       font-size: 0.9rem; 
       text-shadow: 0 1px 3px rgba(0,0,0,0.9); 
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
     
     .search-box { 
@@ -50,7 +47,7 @@
       flex-direction: column;
       gap: 10px; 
       background: rgba(10, 25, 60, 0.92); 
-      padding: 12px;
+      padding: 14px;
       border-radius: 14px;
       border: 2px solid #ffd700;
       box-shadow: 0 6px 20px rgba(0,0,0,0.6);
@@ -59,7 +56,7 @@
     .search-box input { 
       width: 100%; 
       padding: 12px 8px; 
-      font-size: 1rem; 
+      font-size: 1.1rem; 
       border: 2px solid #ffffff; 
       border-radius: 8px; 
       background: #ffffff; 
@@ -72,7 +69,7 @@
     .search-box button { 
       width: 100%;
       padding: 12px; 
-      font-size: 1rem; 
+      font-size: 1.1rem; 
       font-weight: 900; 
       border: none; 
       border-radius: 8px; 
@@ -81,6 +78,7 @@
       cursor: pointer; 
       box-shadow: 0 3px 8px rgba(0,0,0,0.4);
       text-transform: uppercase;
+      touch-action: manipulation;
     }
 
     .search-box button:active {
@@ -155,6 +153,7 @@
       align-items: center; 
       justify-content: center; 
       color: #0f172a; 
+      touch-action: manipulation;
     }
 
     .cell.header { 
@@ -342,27 +341,31 @@
       celdas.forEach(celda => celda.classList.remove("marked"));
     }
 
-    window.onload = function() {
+    document.addEventListener("DOMContentLoaded", function() {
       const btnBuscar = document.getElementById("btnBuscar");
       const btnReset = document.getElementById("btnReset");
       const input = document.getElementById("numCarton");
 
       if (btnBuscar) {
-        btnBuscar.onclick = buscarCarton;
+        btnBuscar.addEventListener("click", buscarCarton);
+        btnBuscar.addEventListener("touchend", function(e) {
+          e.preventDefault();
+          buscarCarton();
+        });
       }
 
       if (btnReset) {
-        btnReset.onclick = limpiarMarcas;
+        btnReset.addEventListener("click", limpiarMarcas);
       }
 
       if (input) {
-        input.onkeyup = function(e) {
+        input.addEventListener("keyup", function(e) {
           if (e.key === "Enter" || e.keyCode === 13) {
             buscarCarton();
           }
-        };
+        });
       }
-    };
+    });
   </script>
 
 </body>
