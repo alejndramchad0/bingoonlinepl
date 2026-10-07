@@ -59,11 +59,11 @@
       cursor: pointer; 
     }
 
-    .card-title { font-size: 1.3rem; font-weight: bold; color: #f8fafc; margin: 15px 0 5px 0; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+    .card-title { font-size: 1.8rem; font-weight: bold; color: #f8fafc; margin: 15px 0 5px 0; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
     
     .card { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; max-width: 360px; margin: 10px auto; background: rgba(30, 41, 59, 0.95); padding: 12px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border: 1px solid #334155; }
-    .cell { background: #334155; border: 1px solid #475569; padding: 14px 2px; font-weight: bold; font-size: 1.1rem; cursor: pointer; user-select: none; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #fff; }
-    .cell.header { background: #facc15; color: #0f172a; font-size: 1.3rem; font-weight: 900; border: none; cursor: default; }
+    .cell { background: #334155; border: 1px solid #475569; padding: 14px 2px; font-weight: bold; font-size: 1.5rem; cursor: pointer; user-select: none; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #fff; }
+    .cell.header { background: #facc15; color: #0f172a; font-size: 1.5rem; font-weight: 900; border: none; cursor: default; }
     .cell.marked { background: #ef4444 !important; color: #fff !important; border-color: #dc2626 !important; border-radius: 50%; }
     .cell.free { background: #22c55e; color: #fff; font-size: 0.85rem; border: none; }
     
@@ -136,7 +136,7 @@
           cell.className = "cell";
 
           if (fila === 2 && col === 2) {
-            cell.innerText = "LIBRE";
+            cell.innerText = "PL";
             cell.classList.add("free", "marked");
           } else {
             cell.innerText = columnas[col][fila];
