@@ -59,19 +59,6 @@
       cursor: pointer; 
     }
 
-    .cards-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      align-items: center;
-      margin-top: 15px;
-    }
-
-    .card-container {
-      width: 100%;
-      max-width: 360px;
-    }
-
     .card-title { font-size: 1.3rem; font-weight: bold; color: #f8fafc; margin: 15px 0 5px 0; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
     
     .card { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; max-width: 360px; margin: 10px auto; background: rgba(30, 41, 59, 0.95); padding: 12px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border: 1px solid #334155; }
@@ -87,18 +74,19 @@
 <body>
 
   <h1>Buscador de Cartones</h1>
-  <p>Ingresa cartones (Ej: 5 ó 3, 8, 12)</p>
+  <p>Ingresa el número de tu cartón para jugarlo</p>
 
   <div class="search-box">
-    <input type="text" id="numCarton" placeholder="Ej: 5 ó 3, 8, 12" autocomplete="off">
-    <button type="button" onclick="buscarCartones()">Buscar</button>
+    <input type="number" id="numCarton" placeholder="Ejemplo: 56" min="1" max="5000">
+    <button type="button" onclick="buscarCarton()">Buscar</button>
   </div>
 
   <div id="contenido-carton" style="display: none;">
+    <div class="card-title" id="titulo-carton">Cartón #--</div>
+    <div id="bingo-card" class="card"></div>
     <div class="actions">
       <button class="btn-reset" type="button" onclick="limpiarMarcas()">Limpiar Marcas</button>
     </div>
-    <div id="cards-wrapper" class="cards-wrapper"></div>
   </div>
 
   <script>
@@ -110,19 +98,71 @@
       };
     }
 
-    function procesarEntradaCartones(texto) {
-      const lista = [];
-      if (!texto) return lista;
-      const partes = texto.split(',');
+    function buscarCarton() {
+      const input = document.getElementById("numCarton").value;
+      const numero = parseInt(input);
 
-      partes.forEach(p => {
-        const num = parseInt(p.trim());
-        if (!isNaN(num) && num > 0 && !lista.includes(num)) {
-          lista.push(num);
-        }
+      if (!numero || numero < 1) {
+        alert("Por favor ingresa un número de cartón válido.");
+        return;
+      }
+
+      document.getElementById("titulo-carton").innerText = "Cartón #" + numero;
+      document.getElementById("contenido-carton").style.display = "block";
+
+      const rng = pseudoRandom(numero);
+      const container = document.getElementById("bingo-card");
+      container.innerHTML = "";
+
+      const headers = ['B', 'I', 'N', 'G', 'O'];
+      headers.forEach(h => {
+        const div = document.createElement("div");
+        div.className = "cell header";
+        div.innerText = h;
+        container.appendChild(div);
       });
 
-      return lista;
+      const columnas = [
+        obtenerNumerosSemilla(1, 15, 5, rng),
+        obtenerNumerosSemilla(16, 30, 5, rng),
+        obtenerNumerosSemilla(31, 45, 5, rng),
+        obtenerNumerosSemilla(46, 60, 5, rng),
+        obtenerNumerosSemilla(61, 75, 5, rng)
+      ];
+
+      for (let fila = 0; fila < 5; fila++) {
+        for (let col = 0; col < 5; col++) {
+          const cell = document.createElement("div");
+          cell.className = "cell";
+
+          if (fila === 2 && col === 2) {
+            cell.innerText = "LIBRE";
+            cell.classList.add("free", "marked");
+          } else {
+            cell.innerText = columnas[col][fila];
+            cell.onclick = function() {
+              this.classList.toggle("marked");
+            };
+          }
+          container.appendChild(cell);
+        }
+      }
     }
 
-    function buscarCart
+    function obtenerNumerosSemilla(min, max, cantidad, rng) {
+      const numeros = [];
+      while (numeros.length < cantidad) {
+        const num = Math.floor(rng() * (max - min + 1)) + min;
+        if (!numeros.includes(num)) numeros.push(num);
+      }
+      return numeros;
+    }
+
+    function limpiarMarcas() {
+      const celdas = document.querySelectorAll(".cell:not(.header):not(.free)");
+      celdas.forEach(celda => celda.classList.remove("marked"));
+    }
+  </script>
+
+</body>
+</html>
